@@ -27,15 +27,19 @@ class Car:
             color: str,
             model: str,
             price: int,
-            engine: Engine
+            # engine: Engine
     ):
         self.color = color
         self.model = model
         self.price = price
+        self.engine = None
+
+    def attach_engine(self, engine):
         self.engine = engine
 
     def go(self):
         print(f'{self.model} goes!!!')
+        self.engine = Engine(4, 2, 'Gasoline')
 
     def stop(self):
         print(f'{self.model} stopped')
@@ -92,16 +96,16 @@ class Square(Rectangle):
         super().__init__(length, length)
 
 
-class Cube(Square):
-    def surface_area(self):
-        return self.area() * 6
-
-    def volume(self):
-        surface = self.area()
-        return surface * self.length
-
-    def perimeter(self):
-        print('No perimeter')
+# class Cube(Square):
+#     # def surface_area(self):
+#     #     return self.area() * 6
+#
+#     def volume(self):
+#         surface = self.area()
+#         return surface * self.length
+#
+#     def perimeter(self):
+#         print('No perimeter')
 
 
 class Triangle:
@@ -149,53 +153,111 @@ class Back(C, B):
         super().__init__()
 
 
+class Pyramid2(Square, Triangle):
+    def __init__(self, base, slant_height, **kwargs):
+        self.base = base
+        self.slant_height = slant_height
+        kwargs['height'] = slant_height
+        kwargs['length'] = base
+        super().__init__(base=base, **kwargs)
+
+
+class SurfaceAreaMixin:
+    def surface_area(self):
+        surface_area = 0
+        for surface in self.surfaces:
+            surface_area += surface.area(self)
+
+        return surface_area
+
+
+class Cube(SurfaceAreaMixin, Square):
+    def __init__(self, length):
+        super().__init__(length)
+        self.surfaces = [
+            Square,
+            Square,
+            Square,
+            Square,
+            Square,
+            Square
+        ]
+
+    def volume(self):
+        surface = self.area()
+        return surface * self.length
+
+    def perimeter(self):
+        print('No perimeter')
+
+
+class Pyramid3(Square, Triangle, SurfaceAreaMixin):
+    def __init__(self, base, slant_height):
+        self.base = base
+        self.slant_height = slant_height
+        self.height = slant_height
+        self.length = base
+        self.width = base
+
+        self.surfaces = [
+            Square,
+            Triangle,
+            Triangle,
+            Triangle,
+            Triangle
+        ]
+
+
 def main():
-    c = MyClass()
-    print(dir(c))
-
-    o = object()
-
-    print(dir(o))
-    engine = Engine(8, 4, 'Diesel')
-
-    car = Car('Red', 'BMW', 50000, engine)
-
-    car.engine.start()
-    print(car.engine.fuel_type)
-    car.go()
-    car.stop()
-    car.engine.stop()
-
-    engine.start()
-    INTERFACE
-
-    driver = CarDriver()
-    driver.work()
-
-    waiter = Waiter()
-    waiter.work()
-
-    employee = Employee()
-    employee.work()
-
-    square = Square(20)
-    print(square.perimeter())
-    print(square.area())
-    print(square.__class__.__bases__)
-    cube = Cube(20)
-    volume = cube.volume()
-    print(volume)
-    cube.perimeter()
-    perimeter = super(Cube, cube).perimeter()
-    print(perimeter)
-    pyramid = Pyramid(20, 12)
-    print(pyramid.__class__.__bases__)
-    print(Pyramid.mro())
-    print(Pyramid.__mro__)
-
-    forward = Forward()
-    print('-' * 80)
-    backward = Back()
+    # c = MyClass()
+    # print(dir(c))
+    #
+    # o = object()
+    #
+    # print(dir(o))
+    # engine = Engine(8, 4, 'Diesel')
+    #
+    # car = Car('Red', 'BMW', 50000, engine)
+    #
+    # car.engine.start()
+    # print(car.engine.fuel_type)
+    # car.go()
+    # car.stop()
+    # car.engine.stop()
+    #
+    # engine.start()
+    #
+    # driver = CarDriver()
+    # driver.work()
+    #
+    # waiter = Waiter()
+    # waiter.work()
+    #
+    # employee = Employee()
+    # employee.work()
+    #
+    # square = Square(20)
+    # print(square.perimeter())
+    # print(square.area())
+    # print(square.__class__.__bases__)
+    # cube = Cube(20)
+    # volume = cube.volume()
+    # print(volume)
+    # cube.perimeter()
+    # perimeter = super(Cube, cube).perimeter()
+    # print(perimeter)
+    # pyramid = Pyramid(20, 12)
+    # print(pyramid.__class__.__bases__)
+    # print(Pyramid.mro())
+    # print(Pyramid.__mro__)
+    #
+    # forward = Forward()
+    # print('-' * 80)
+    # backward = Back()
+    cube = Cube(10)
+    print(cube.surface_area())
+    pyramid = Pyramid3(10, 10)
+    print((pyramid.surface_area()))
 
 
 if __name__ == '__main__':
