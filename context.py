@@ -76,11 +76,11 @@ class Timer:
         print(self.end - self.start)
 
 
-# timer = Timer()
-#
-# with timer:
-#     time.sleep(1)
-#     time.sleep(1.5)
+timer = Timer()
+
+with timer:
+    time.sleep(1)
+    time.sleep(1.5)
 
 
 from contextlib import contextmanager

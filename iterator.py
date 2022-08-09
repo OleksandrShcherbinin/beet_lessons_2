@@ -186,12 +186,13 @@ def restartable():
             num += 1
 
 
-# restart = restartable()
-#
-# for i in restart:
-#     print(i)
-#     if i == 10:
-#         restart.throw(Exception('Error'))
+restart = restartable()
+
+for i in restart:
+    print(i)
+    if i == 10:
+        restart.send('')
+        # restart.throw(Exception('Error'))
 
 
 squares = [num ** 2 for num in range(100000)]
