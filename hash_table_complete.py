@@ -1,8 +1,10 @@
 from collections import deque
-from typing import NamedTuple, Any
+from dataclasses import dataclass
+from typing import Any
 
 
-class Pair(NamedTuple):
+@dataclass(frozen=True)
+class Pair:
     key: Any
     value: Any
 
