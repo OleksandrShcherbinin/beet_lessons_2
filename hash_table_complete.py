@@ -46,7 +46,8 @@ class HashTable:
             self._resize_and_rehash()
 
         match self._find(key):
-            case deque() as bucket, index, (key, _):
+            # case deque() as bucket, index, (key, _):
+            case bucket, index, (key, _):
                 bucket[index] = Pair(key, value)
             case bucket:
                 bucket.append(Pair(key, value))
