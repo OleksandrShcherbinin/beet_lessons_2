@@ -188,4 +188,7 @@ result = select_query(connection, select_posts_comments_users)
 where_select = "SELECT description FROM posts WHERE id = 2"
 
 result = select_query(connection, where_select)
-pprint(result)
+# pprint(result)
+
+if __name__ == '__main__':
+    ...
