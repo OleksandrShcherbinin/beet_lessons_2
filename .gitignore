@@ -109,3 +109,4 @@ graph.png
 *.scss.map
 /northwind.db
 /my_db.sqlite
+/notebooks.json
