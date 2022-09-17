@@ -111,3 +111,11 @@ graph.png
 /my_db.sqlite
 /notebooks.json
 /rozetka.db
+/async_select.py
+/async_callbacks.py
+/async_gen.py
+/async_gen2.py
+/async_coro.py
+/async.py
+/notebooks.csv
+/rozetka.csv
